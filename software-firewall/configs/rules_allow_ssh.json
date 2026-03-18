@@ -1,0 +1,50 @@
+{
+    "description": "Allow SSH Only - Permits only SSH (port 22) traffic, blocks everything else",
+    "default_policy": "BLOCK",
+    "rules": [
+        {
+            "id": 1,
+            "description": "Allow inbound SSH connections",
+            "direction": "inbound",
+            "protocol": "TCP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": 22,
+            "action": "ALLOW"
+        },
+        {
+            "id": 2,
+            "description": "Allow outbound SSH connections",
+            "direction": "outbound",
+            "protocol": "TCP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": 22,
+            "dst_port": "any",
+            "action": "ALLOW"
+        },
+        {
+            "id": 3,
+            "description": "Allow DNS resolution (needed for SSH hostname lookups)",
+            "direction": "outbound",
+            "protocol": "UDP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": 53,
+            "action": "ALLOW"
+        },
+        {
+            "id": 4,
+            "description": "Allow DNS responses",
+            "direction": "inbound",
+            "protocol": "UDP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": 53,
+            "dst_port": "any",
+            "action": "ALLOW"
+        }
+    ]
+}
