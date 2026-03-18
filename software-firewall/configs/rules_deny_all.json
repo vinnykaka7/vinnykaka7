@@ -1,0 +1,5 @@
+{
+    "description": "Default Deny All - Blocks all incoming and outgoing traffic",
+    "default_policy": "BLOCK",
+    "rules": []
+}

@@ -1,0 +1,87 @@
+{
+    "description": "Example ruleset - Common web server configuration with rate limiting",
+    "default_policy": "BLOCK",
+    "rate_limit": {
+        "icmp_max_per_second": 5,
+        "icmp_burst_size": 10
+    },
+    "rules": [
+        {
+            "id": 1,
+            "description": "Allow inbound HTTP",
+            "direction": "inbound",
+            "protocol": "TCP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": 80,
+            "action": "ALLOW"
+        },
+        {
+            "id": 2,
+            "description": "Allow inbound HTTPS",
+            "direction": "inbound",
+            "protocol": "TCP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": 443,
+            "action": "ALLOW"
+        },
+        {
+            "id": 3,
+            "description": "Allow inbound SSH",
+            "direction": "inbound",
+            "protocol": "TCP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": 22,
+            "action": "ALLOW"
+        },
+        {
+            "id": 4,
+            "description": "Allow outbound DNS",
+            "direction": "outbound",
+            "protocol": "UDP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": 53,
+            "action": "ALLOW"
+        },
+        {
+            "id": 5,
+            "description": "Allow ICMP ping (rate-limited by global rate_limit settings)",
+            "direction": "inbound",
+            "protocol": "ICMP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": "any",
+            "action": "ALLOW"
+        },
+        {
+            "id": 6,
+            "description": "Block traffic from known malicious IP",
+            "direction": "inbound",
+            "protocol": "any",
+            "src_ip": "10.0.0.100",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": "any",
+            "action": "BLOCK"
+        },
+        {
+            "id": 7,
+            "description": "Log all outbound traffic on non-standard ports",
+            "direction": "outbound",
+            "protocol": "TCP",
+            "src_ip": "any",
+            "dst_ip": "any",
+            "src_port": "any",
+            "dst_port": 8080,
+            "action": "LOG"
+        }
+    ]
+}
